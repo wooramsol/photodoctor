@@ -1,0 +1,343 @@
+import json
+from PIL import Image
+# -*- coding: utf-8 -*-
+"""index.html / guide.html / portfolio.html 생성 — v3 (light, editorial, mobile-first)"""
+
+CHANNEL_KEY = "752e9006-df51-4889-a082-255ef2db91d8"
+I = {
+    "chat": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>',
+    "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+    "mark": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+    "down": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>',
+}
+
+def head(title, desc, url, ld):
+    hero_sizes = HERO_SIZES; font_css = FONT_CSS
+    css = open('css/style.css', encoding='utf-8').read().replace('/* ==========================================================\n   PHOTODOCTOR v3 — light / editorial / mobile-first\n   ========================================================== */\n', '')
+    return f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{title}</title>
+  <meta name="description" content="{desc}">
+  <meta name="keywords" content="포토닥터,사진합성,사진수정,이미지합성,문서수정,서류수정,PDF수정,포토샵 전문가,합성 전문가,사진 보정,사진 복원">
+  <link rel="canonical" href="{url}">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta name="naver-site-verification" content="33c63d0deb2b7a29a7b9dd7380a59d30081173b0" />
+  <meta name="google-site-verification" content="T-kNFUXCVZ_vH8N4yv3Jy3moEOJjgIhZ62Uc-q4zRrA" />
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="포토닥터">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{desc}">
+  <meta property="og:url" content="{url}">
+  <meta property="og:image" content="https://photodoctor.kr/img/og-image.png">
+  <meta property="og:image:width" content="500">
+  <meta property="og:image:height" content="500">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image:alt" content="포토닥터 로고">
+  <meta name="twitter:card" content="summary">
+  <meta name="author" content="포토닥터">
+
+  <link rel="icon" type="image/png" sizes="180x180" href="img/favicon-a.png">
+  <link rel="apple-touch-icon" href="img/favicon-a.png">
+  <link rel="preload" as="image" href="img/ba/main-after.webp" imagesrcset="img/ba/main-after-m.webp 640w, img/ba/main-after.webp 1000w" imagesizes="{hero_sizes}" fetchpriority="high">
+  <link rel="preload" as="image" href="img/ba/main-before.webp" imagesrcset="img/ba/main-before-m.webp 640w, img/ba/main-before.webp 1000w" imagesizes="{hero_sizes}" fetchpriority="high">
+  <style>{css}</style>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="{font_css}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{font_css}"></noscript>
+  {ld}
+</head>
+<body>
+'''
+
+HEADER = f'''  <header class="hd">
+    <div class="wrap hd__in">
+      <a class="brand" href="./" aria-label="포토닥터 홈"><img class="brand__icon" src="img/icon.png" alt="" width="40" height="40">포토닥터</a>
+      <nav class="hd__nav" aria-label="주요 메뉴">
+        <a href="./#cases">포트폴리오</a><a href="./#why">전문성·보안</a><a href="./#process">진행 절차</a><a href="./#price">비용</a><a href="./#faq">FAQ</a>
+      </nav>
+      <button class="btn btn--sm" data-channel-open>{I["chat"]}익명 상담 <span class="badge" data-channel-badge></span></button>
+    </div>
+  </header>
+'''
+
+FOOTER = '''  <footer class="ft">
+    <div class="wrap">
+      <p><b style="color:#0b0c10">포토닥터 PhotoDoctor</b> · 이미지 정밀 수정 전문</p>
+      <div class="ft__links"><a href="./#faq">자주 묻는 질문 · 환불 규정</a></div>
+      <p>대표자 이메일 112__@naver.com · © 2026 PHOTODOCTOR. All rights reserved.</p>
+    </div>
+  </footer>
+'''
+
+def tail():
+    return f'''  <button class="btn fab" data-channel-open>{I["chat"]}채팅 상담 <span class="badge" data-channel-badge></span></button>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="포트폴리오 크게 보기">
+    <button class="lightbox__close" aria-label="닫기">×</button>
+    <button class="lightbox__btn lightbox__prev" aria-label="이전">‹</button>
+    <img src="" alt="">
+    <button class="lightbox__btn lightbox__next" aria-label="다음">›</button>
+    <div class="lightbox__count"></div>
+  </div>
+
+  <script src="js/main.js" defer></script>
+  <script>
+    (function(){{var w=window;if(w.ChannelIO){{return;}}var ch=function(){{ch.c(arguments);}};ch.q=[];ch.c=function(args){{ch.q.push(args);}};w.ChannelIO=ch;
+    function l(){{if(w.ChannelIOInitialized){{return;}}w.ChannelIOInitialized=true;var s=document.createElement("script");s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";document.head.appendChild(s);}}
+    /* 성능: 첫 화면을 먼저 그린 뒤, 사용자가 화면을 건드리거나(스크롤·터치·클릭) 로드 3초 후에 채널톡을 불러옵니다 */
+    var ev=["scroll","touchstart","pointerdown","keydown"];function once(){{ev.forEach(function(e){{w.removeEventListener(e,once);}});l();}}
+    ev.forEach(function(e){{w.addEventListener(e,once,{{passive:true}});}});
+    w.addEventListener("load",function(){{setTimeout(l,3000);}});}})();
+    ChannelIO('boot', {{ "pluginKey": "{CHANNEL_KEY}", "hideChannelButtonOnBoot": true }});
+    ChannelIO('onBadgeChanged', function (n) {{ document.querySelectorAll('[data-channel-badge]').forEach(function (b) {{ b.textContent = n; b.classList.toggle('is-on', n > 0); }}); }});
+  </script>
+  <!-- 네이버 프리미엄 로그분석 — 광고 계정에서 발급받은 ID로 교체 후 주석 해제
+  <script src="//wcs.naver.net/wcslog.js"></script>
+  <script>if(!wcs_add)var wcs_add={{}};wcs_add["wa"]="여기에_ID";if(window.wcs){{wcs_do();}}</script>
+  -->
+</body>
+</html>
+'''
+
+HERO_SIZES = "(max-width: 779px) calc(100vw - 40px), 480px"
+CASE_SIZES = "(max-width: 779px) calc(100vw - 40px), 350px"
+WIDE_SIZES = "(max-width: 779px) calc(100vw - 40px), 700px"
+FONT_CSS = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+DIMS = json.load(open("img/ba/dims.json"))
+
+def ba(n, ratio, alt, cls="", wide=False):
+    hero = bool(cls)
+    lz = ' fetchpriority="high"' if hero else ' loading="lazy" decoding="async"'
+    sizes = HERO_SIZES if hero else (WIDE_SIZES if wide else CASE_SIZES)
+    def img(side, label):
+        w, h = DIMS[f"{n}-{side}"]
+        src = f"img/ba/{n}-{side}.webp"
+        srcset = f"img/ba/{n}-{side}-m.webp 640w, {src} {w}w" if w > 640 else f"{src} {w}w"
+        return f'<img src="{src}" srcset="{srcset}" sizes="{sizes}" width="{w}" height="{h}" alt="{alt} — {label}"{lz}>'
+    return (f'<div class="ba {cls}" style="--ratio:{ratio}">'
+            f'<div class="ba__after">{img("after", "수정 후")}</div>'
+            f'<div class="ba__before">{img("before", "수정 전")}</div>'
+            f'<div class="ba__handle"></div><span class="ba__lbl ba__lbl--b">BEFORE</span><span class="ba__lbl ba__lbl--a">AFTER</span>'
+            f'<input type="range" min="0" max="100" value="50" aria-label="{alt} 전후 비교 슬라이더"></div>')
+
+KIND = ["사진 합성", "문서 수정", "이미지 합성", "사진 수정", "배경 수정", "인물 보정", "문서 수정", "사진 합성"]
+def thumb(i):
+    n = f"{i:02d}"; k = KIND[(i - 1) % len(KIND)]
+    w, h = Image.open(f"img/gallery/{n}-thumb.webp").size
+    return f'<figure class="g" data-full="img/gallery/{n}-full.jpg"><img src="img/gallery/{n}-thumb.webp" width="{w}" height="{h}" alt="포토닥터 {k} 작업 사례 {i} Before / After" loading="lazy" decoding="async"></figure>'
+thumbs = "\n          ".join(thumb(i) for i in [6, 7, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28])
+
+LD = '''<script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebSite","name":"포토닥터","alternateName":"PhotoDoctor","url":"https://photodoctor.kr/","inLanguage":"ko"},
+    {"@type":"ProfessionalService","name":"포토닥터","alternateName":"PhotoDoctor","url":"https://photodoctor.kr/","image":"https://photodoctor.kr/img/og-image.png",
+     "description":"포토샵 합성 전문가가 모든 사진/문서 고쳐드립니다. 11년 경력 미술품 복원 전문가의 픽셀 단위 정밀 수정. 익명 상담, 작업 후 파일 즉시 삭제.",
+     "email":"112__@naver.com","areaServed":"KR","priceRange":"₩100,000~",
+     "serviceType":["사진 합성","이미지 수정","문서 이미지 수정","PDF 수정","사진 보정","사진 복원","미술품 복원"]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"작업은 어떤 순서로 진행되나요?","acceptedAnswer":{"@type":"Answer","text":"채널톡 익명 상담·접수 → 계좌이체(입금 확인 후 작업 시작) → 작업 진행 → 결과물 전달 → 최초 의뢰 범위 내 수정 → 수정본 전달 후 모든 파일 즉시 삭제."}},
+      {"@type":"Question","name":"작업 기간은 얼마나 걸리나요?","acceptedAnswer":{"@type":"Answer","text":"단순 수정은 당일~1일, 정밀 합성이나 복원은 며칠이 걸릴 수 있습니다. 상담 시 예상 소요 시간을 먼저 안내합니다."}},
+      {"@type":"Question","name":"어떤 파일을 보내면 되나요?","acceptedAnswer":{"@type":"Answer","text":"촬영 원본, 스캔 원본, PDF 원본 등 원본 파일을 권장합니다. 캡처본도 가능합니다."}},
+      {"@type":"Question","name":"결과물 수정 요청이 가능한가요?","acceptedAnswer":{"@type":"Answer","text":"최초 의뢰 범위 내 수정은 포함됩니다. 요청하지 않은 부분은 반영되지 않으며, 범위를 벗어나는 추가 작업은 별도 비용이 발생할 수 있습니다."}},
+      {"@type":"Question","name":"취소·환불 규정은 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"작업 착수 후 청약 철회 시 최대 20%, 50% 완료 후 최대 10% 환불 가능, 100% 완료 후 환불 불가. 전문가 책임 사유(기간 미준수, 작업 태만)는 환불 가능하며, 작업 시작 후 단순 변심 등 의뢰인 사유로 인한 전액 환불은 불가합니다."}}
+    ]}
+  ]}
+  </script>'''
+
+index = head("포토샵 합성 전문가가 모든 사진/문서 고쳐드립니다 | 포토닥터",
+             "포토샵 합성 전문가가 모든 사진/문서 고쳐드립니다. 11년 경력 미술품 복원 전문가의 픽셀 단위 정밀 수정 — 사진 합성, 문서·서류 이미지, PDF·캡처 자료. 익명 상담, 계좌이체, 작업 후 파일 즉시 삭제. 최소 10만원부터.",
+             "https://photodoctor.kr/", LD)
+index += HEADER + f'''
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__in">
+        <div>
+          <div class="kicker">11년 경력 · 미술품 복원 전문가</div>
+          <h1>포토샵 합성 전문가가<br>모든 사진/문서<br>고쳐드립니다.</h1>
+          <p class="hero__sub">모든 사진, 서류, 문서, PDF, 캡처까지</p>
+          <ul class="hero__proof">
+            <li>{I["check"]}24시간 내 작업완료</li>
+            <li>{I["check"]}작업파일 즉시 삭제</li>
+          </ul>
+        </div>
+        <div class="hero__visual">
+          {ba("main", "1200 / 1529", "서류 숫자 정밀 수정", "ba--hero")}
+          <p class="hero__hint">← 가운데 손잡이를 좌우로 움직여 비교해 보세요 →</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRIP -->
+    <section class="strip" aria-label="포토닥터 실적">
+      <div class="wrap strip__grid">
+        <div><div class="strip__num">2,430<small>건</small></div><div class="strip__lbl">누적 작업</div></div>
+        <div><div class="strip__num">11<small>년</small></div><div class="strip__lbl">합성·복원 경력</div></div>
+        <div><div class="strip__num">98.7<small>%</small></div><div class="strip__lbl">고객 만족도</div></div>
+        <div><div class="strip__num">114<small>곳</small></div><div class="strip__lbl">기업 파트너</div></div>
+      </div>
+      <div class="wrap">
+        <div class="partners partners--strip" aria-label="기업 파트너 로고">
+          <div class="partners__track">
+            {''.join(f'<img src="img/partners/{i:02d}.webp" width="300" height="150" alt="파트너 로고">' for i in range(1, 16))}
+            {''.join(f'<img src="img/partners/{i:02d}.webp" width="300" height="150" alt="" aria-hidden="true">' for i in range(1, 16))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASES -->
+    <section class="sec" id="cases">
+      <div class="wrap">
+        <div class="sec__head">
+          <h2 class="sec__title">포트폴리오에서 전문가의 실력을 확인해보세요</h2>
+          <p class="sec__desc">손잡이를 좌우로 움직여 전·후를 비교할 수 있어요.</p>
+        </div>
+        <div class="cases">
+          <figure class="case case--wide">{ba("a2", "165 / 100", "캡처 화면 날짜·시간 수정", wide=True)}<figcaption><h3>캡처 화면 날짜·시간 수정</h3><span>캡처 자료</span></figcaption></figure>
+          <figure class="case">{ba("a4", "4 / 5", "서류 이름 수정")}<figcaption><h3>서류 이름 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a3", "165 / 100", "수치표 값 수정", wide=True)}<figcaption><h3>수치표 값 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case">{ba("a16", "4 / 5", "침실 가구 제거")}<figcaption><h3>침실 가구 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a5", "165 / 100", "영수증 날짜 수정", wide=True)}<figcaption><h3>영수증 날짜 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case">{ba("a17", "4 / 5", "주방 식탁·의자 제거")}<figcaption><h3>주방 식탁·의자 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a6", "165 / 100", "검사 결과지 수정", wide=True)}<figcaption><h3>검사 결과지 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case">{ba("a18", "4 / 5", "공사현장 수정")}<figcaption><h3>공사현장 수정</h3><span>배경 합성</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a11", "165 / 100", "가설 펜스 출입문 합성", wide=True)}<figcaption><h3>가설 펜스 출입문 합성</h3><span>사물 합성</span></figcaption></figure>
+          <figure class="case">{ba("a9", "4 / 5", "창고 구조물 제거·벽면 합성")}<figcaption><h3>창고 구조물 제거·벽면 합성</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a12", "165 / 100", "공사장 펜스 제거", wide=True)}<figcaption><h3>공사장 펜스 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case">{ba("a15", "4 / 5", "창고 적재물 제거")}<figcaption><h3>창고 적재물 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a13", "165 / 100", "펜스 표지판·부착물 제거", wide=True)}<figcaption><h3>펜스 표지판·부착물 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case">{ba("a10", "4 / 5", "도로 장비·차량 합성")}<figcaption><h3>도로 장비·차량 합성</h3><span>사물 합성</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a14", "165 / 100", "거푸집 벽 합성", wide=True)}<figcaption><h3>거푸집 벽 합성</h3><span>사물 합성</span></figcaption></figure>
+          <figure class="case">{ba("a8", "4 / 5", "인물 변경")}<figcaption><h3>인물 변경</h3><span>인물 합성</span></figcaption></figure>
+        </div>
+        <div class="thumbs gallery" id="thumbs">
+          {thumbs}
+        </div>
+        <div class="cases-more"><button class="btn btn--light btn--block" data-gallery-toggle="#thumbs" data-label-open="사례 접기" data-label-closed="더보기">더보기</button></div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="sec" id="why">
+      <div class="wrap">
+        <div class="sec__head">
+          <h2 class="sec__title">원본처럼, 흔적없이, 정밀하게</h2>
+        </div>
+        <div class="why">
+          <div class="card">
+            <h3>AI가 따라할 수 없는 전문합성</h3>
+            <p>붓질 한 획, 종이의 결까지 복원하던 기준으로 디지털 이미지를 다룹니다. 자동 보정이 아니라 사람이 픽셀 단위로 작업합니다.</p>
+            <ul>
+              <li>{I["check"]}<span>2,430건 이상 작업, 만족도 98.7%</span></li>
+              <li>{I["check"]}<span>미술관·전시·영화 기업 114곳과 협업</span></li>
+            </ul>
+          </div>
+          <div class="card card--ink">
+            <h3>철저한 익명 보장</h3>
+            <p>민감한 자료를 다루는 일이기에 처음부터 끝까지 흔적을 남기지 않는 방식으로 운영합니다.</p>
+            <ul>
+              <li>{I["check"]}<span>가입·이름·연락처 없이 익명 채팅 상담</span></li>
+              <li>{I["check"]}<span>최종 전달 직후 원본·결과물·대화 기록 삭제, 서버 보관 없음</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="nope">행사목적의 공문서 위·변조, 타인의 초상권·저작권을 침해하는 합성은 진행하지 않습니다.</p>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="sec" id="process">
+      <div class="wrap">
+        <div class="sec__head">
+          <h2 class="sec__title">파일 보내고, 견적 확인하고, 이체하면 끝</h2>
+        </div>
+        <ol class="proc">
+          <li><div><h3>파일과 요청 내용 전송</h3><p>채널톡으로 수정할 이미지와 내용을 정확히 표시해서 보내주세요.</p></div></li>
+          <li><div><h3>견적 · 작업시간 안내</h3><p>평균 1시간 내 답변합니다. 이미지를 보낸 순으로 답장하니 이미지를 꼭 먼저 보내주세요.</p></div></li>
+          <li class="is-key"><div><h3>계좌이체</h3><p>안내드리는 계좌로 이체하시면 입금 확인 즉시 작업을 시작합니다.</p></div></li>
+          <li><div><h3>결과물 전달 · 수정</h3><p>원본과 같은 형식으로 전달하고, 의뢰 범위 안의 수정 요청을 반영합니다.</p></div></li>
+          <li><div><h3>파일 전부 삭제</h3><p>최종 전달이 끝나면 원본, 결과물, 대화 기록을 삭제합니다.</p><span class="chip">보관 없음</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PRICE -->
+    <section class="sec" id="price">
+      <div class="wrap">
+        <div class="sec__head">
+          <h2 class="sec__title">견적은 무료, 금액은 먼저 확인</h2>
+        </div>
+        <div class="price">
+          <div>
+            <div class="price__lbl">최소 작업비 · 1장 기준</div>
+            <div class="price__num">10만원<small>부터</small></div>
+            <p class="price__desc">수정 범위와 난이도에 따라 달라집니다. 상담에서 정확한 금액을 확인한 뒤 결정하세요.</p>
+            <button class="btn" data-channel-open>{I["chat"]}무료로 견적 받기</button>
+          </div>
+          <ul>
+            <li>{I["check"]}<span>견적 확인 전에는 어떤 비용도 발생하지 않습니다</span></li>
+            <li>{I["check"]}<span>계좌이체, 입금 확인 후 작업 시작</span></li>
+            <li>{I["check"]}<span>최초 의뢰 범위 내 수정 포함</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq">
+      <div class="wrap">
+        <div class="sec__head">
+          <h2 class="sec__title">자주 묻는 질문</h2>
+        </div>
+        <div class="faq">
+          <div class="faq__item"><button class="faq__q" aria-expanded="false">작업은 어떤 순서로 진행되나요?</button><div class="faq__a">① 채널톡 익명 상담·접수 → ② 계좌이체(입금 확인 후 작업 시작) → ③ 작업 진행 → ④ 결과물 전달 → ⑤ 최초 의뢰 범위 안에서 수정 → ⑥ 수정본 전달 후 원본·결과물·상담 기록 즉시 삭제. 이 순서로 진행됩니다.</div></div>
+          <div class="faq__item"><button class="faq__q" aria-expanded="false">작업 기간은 얼마나 걸리나요?</button><div class="faq__a">단순 수정은 당일~1일, 정밀 합성이나 복원은 며칠이 걸릴 수 있습니다. 상담 때 예상 소요 시간을 먼저 알려드립니다.</div></div>
+          <div class="faq__item"><button class="faq__q" aria-expanded="false">어떤 파일을 보내면 되나요?</button><div class="faq__a">꼭 <b>원본 파일</b>(촬영 원본, 스캔 원본, PDF 원본)을 보내주세요. 화질이 좋을수록 결과가 자연스럽습니다. 캡처본도 가능하지만 원본이 있다면 원본을 권장합니다.</div></div>
+          <div class="faq__item"><button class="faq__q" aria-expanded="false">결과물 수정 요청이 가능한가요?</button><div class="faq__a">네. 최초 의뢰 범위 안의 수정은 반영해 다시 보내드립니다. 다만 상담 시 요청하지 않은 부분은 합성에 반영되지 않으며, 최초 의뢰 내용과 다르거나 작업 진행 중 수정을 요청하시면 추가 비용이 청구될 수 있습니다.</div></div>
+          <div class="faq__item faq__item--more"><button class="faq__q" aria-expanded="false">취소·환불 규정은 어떻게 되나요?</button><div class="faq__a"><b>기본 규정</b> — 작업 착수 이후 청약 철회 시, 진행된 작업량 또는 작업 일수를 산정한 금액을 공제하고 환불합니다.<br>· 작업 착수 후 청약 철회: 총 결제 금액의 최대 20%까지 환불<br>· 작업 50% 완료 후 청약 철회: 최대 10%까지 환불<br>· 작업 100% 완료 후: 환불 불가<br><b>전문가 책임 사유</b> — 작업 기간 미준수, 작업 태만 등 전문가 책임으로 인한 철회는 환불이 가능합니다.<br><b>의뢰인 책임 사유</b> — 작업이 시작되면 단순 변심 등 의뢰인 사유로 인한 전액 환불은 불가능합니다.</div></div>
+        </div>
+        <div class="cases-more"><button class="btn btn--light btn--block" data-faq-more data-label-open="접기" data-label-closed="더보기">더보기</button></div>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="final" id="contact">
+      <div class="wrap">
+        <h2>수정할 이미지를 보내주세요.</h2>
+        <p>평균 1시간 내로 견적 드립니다.</p>
+        <button class="btn btn--accent" data-channel-open>{I["chat"]}익명으로 상담하기</button>
+      </div>
+    </section>
+  </main>
+
+''' + '''  <section class="about" aria-label="포토닥터 소개">
+    <div class="wrap">
+      <h2 class="about__title">포토닥터는 어떤 곳인가요</h2>
+      <p>포토닥터는 포토샵 합성 전문가가 사진과 문서를 원본처럼 고쳐드리는 이미지 정밀 수정 서비스입니다. 미술품 복원 분야에서 11년간 쌓은 기준으로 사진 합성, 인물·배경 수정, 사물 제거, 서류·문서 이미지 수정, PDF와 화면 캡처 자료 보정, 옛 사진 복원까지 픽셀 단위로 작업합니다. 자동 보정 프로그램이나 AI 필터로는 남는 어색한 경계와 흔적을 사람이 직접 다듬기 때문에, 어디를 고쳤는지 알 수 없는 결과물을 드립니다.</p>
+      <p>상담은 채널톡으로 익명 진행되며 이름이나 연락처를 묻지 않습니다. 수정할 이미지와 원하는 내용을 보내주시면 평균 1시간 안에 견적과 작업 시간을 안내하고, 계좌이체 입금 확인 후 작업을 시작합니다. 결과물은 원본과 같은 형식으로 전달하며, 최초 의뢰 범위 안의 수정은 포함됩니다. 최종 전달이 끝나면 원본과 결과물, 상담 기록을 모두 삭제해 어떤 파일도 보관하지 않습니다.</p>
+      <p>미술관, 전시, 영화, 복원 관련 기업 114곳과 협업했고 누적 2,430건 이상의 작업에서 98.7%의 만족도를 기록했습니다. 최소 작업비는 1장 기준 10만원부터이며, 수정 범위와 난이도에 따라 상담에서 정확한 금액을 먼저 확인하실 수 있습니다.</p>
+    </div>
+  </section>
+
+''' + FOOTER + tail()
+open("index.html", "w", encoding="utf-8").write(index)
+
+open("guide.html", "w", encoding="utf-8").write('''<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>작업 안내 · 환불 규정 | 포토닥터</title><meta name="robots" content="noindex">
+<link rel="canonical" href="https://photodoctor.kr/#faq"><meta http-equiv="refresh" content="0; url=./#faq"><script>location.replace("./#faq");</script>
+</head><body><p><a href="./#faq">자주 묻는 질문 · 환불 규정 보기</a></p></body></html>
+''')
+
+open("portfolio.html", "w", encoding="utf-8").write('''<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>작업 사례 | 포토닥터</title><meta name="robots" content="noindex">
+<link rel="canonical" href="https://photodoctor.kr/#cases"><meta http-equiv="refresh" content="0; url=./#cases"><script>location.replace("./#cases");</script>
+</head><body><p><a href="./#cases">작업 사례 보기</a></p></body></html>
+''')
+print("ok", len(index))
