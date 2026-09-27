@@ -278,7 +278,6 @@ button { font: inherit; cursor: pointer; color: inherit; background: none; borde
   .partners__track img { height: 56px; }
   .partners--strip .partners__track img { height: 84px; }
   .partners--strip .partners__track { gap: 80px; }
-  .faq { max-width: 760px; }
   .final { margin-top: 96px; padding: 72px 0; }
   .final h2 { font-size: 38px; }
   .final .btn { width: auto; }
