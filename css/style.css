@@ -77,7 +77,7 @@ button { font: inherit; cursor: pointer; color: inherit; background: none; borde
 .hero__sub { margin-top: 14px; font-size: 17.5px; color: var(--muted); line-height: 1.65; }
 .hero__cta { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .hero__cta .btn { width: 100%; }
-.hero__proof { margin-top: 18px; display: flex; gap: 14px; flex-wrap: wrap; font-size: 15px; color: var(--muted); }
+.hero__proof { margin-top: 20px; display: flex; gap: 14px; flex-wrap: wrap; font-size: 15px; color: var(--muted); }
 .hero__proof li { display: inline-flex; align-items: center; gap: 6px; }
 .hero__proof svg { width: 15px; height: 15px; color: var(--ok); }
 
