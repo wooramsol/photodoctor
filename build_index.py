@@ -135,7 +135,7 @@ def thumb(i):
 def thumb_named(n, alt):
     w, h = Image.open(f"img/gallery/{n}-thumb.webp").size
     return f'<figure class="g" data-full="img/gallery/{n}-full.jpg"><img src="img/gallery/{n}-thumb.webp" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async"></figure>'
-thumbs = "\n          ".join([thumb_named("a8", "포토닥터 인물 변경 작업 사례 Before / After")] + [thumb(i) for i in [6, 7, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28]])
+thumbs = "\n          ".join([thumb(i) for i in [6, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28]])
 
 LD = '''<script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
@@ -204,7 +204,7 @@ index += HEADER + f'''
           <p class="sec__desc">손잡이를 좌우로 움직여 전·후를 비교할 수 있어요.</p>
         </div>
         <div class="cases">
-          <figure class="case case--wide">{ba("a2", "165 / 100", "캡처 화면 날짜·시간 수정", wide=True)}<figcaption><h3>캡처 화면 날짜·시간 수정</h3><span>캡처 자료</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a2", "446 / 300", "캡처 화면 날짜·시간 수정", wide=True)}<figcaption><h3>캡처 화면 날짜·시간 수정</h3><span>캡처 자료</span></figcaption></figure>
           <figure class="case">{ba("a4", "4 / 5", "서류 이름 수정")}<figcaption><h3>서류 이름 수정</h3><span>문서 이미지</span></figcaption></figure>
           <figure class="case case--wide">{ba("a3", "165 / 100", "수치표 값 수정", wide=True)}<figcaption><h3>수치표 값 수정</h3><span>문서 이미지</span></figcaption></figure>
           <figure class="case">{ba("a16", "4 / 5", "침실 가구 제거")}<figcaption><h3>침실 가구 제거</h3><span>사물 제거</span></figcaption></figure>
@@ -218,6 +218,8 @@ index += HEADER + f'''
           <figure class="case case--wide">{ba("a13", "165 / 100", "펜스 표지판·부착물 제거", wide=True)}<figcaption><h3>펜스 표지판·부착물 제거</h3><span>사물 제거</span></figcaption></figure>
           <figure class="case">{ba("a10", "4 / 5", "도로 장비·차량 합성")}<figcaption><h3>도로 장비·차량 합성</h3><span>사물 합성</span></figcaption></figure>
           <figure class="case case--wide">{ba("a14", "165 / 100", "거푸집 벽 합성", wide=True)}<figcaption><h3>거푸집 벽 합성</h3><span>사물 합성</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a19", "1382 / 674", "사무실 집기·가구 제거", wide=True)}<figcaption><h3>사무실 집기·가구 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case">{ba("a20", "4 / 5", "보도블록 복원 합성")}<figcaption><h3>보도블록 복원 합성</h3><span>배경 수정</span></figcaption></figure>
         </div>
         <div class="thumbs gallery" id="thumbs">
           {thumbs}
