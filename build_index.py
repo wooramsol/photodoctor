@@ -204,13 +204,13 @@ index += HEADER + f'''
           <p class="sec__desc">손잡이를 좌우로 움직여 전·후를 비교할 수 있어요.</p>
         </div>
         <div class="cases">
-          <figure class="case case--wide">{ba("a2", "446 / 300", "캡처 화면 날짜·시간 수정", wide=True)}<figcaption><h3>캡처 화면 날짜·시간 수정</h3><span>캡처 자료</span></figcaption></figure>
-          <figure class="case">{ba("a4", "4 / 5", "서류 이름 수정")}<figcaption><h3>서류 이름 수정</h3><span>문서 이미지</span></figcaption></figure>
           <figure class="case case--wide">{ba("a3", "165 / 100", "수치표 값 수정", wide=True)}<figcaption><h3>수치표 값 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case">{ba("a4", "4 / 5", "서류 이름 수정")}<figcaption><h3>서류 이름 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a2", "446 / 300", "캡처 화면 날짜·시간 수정", wide=True)}<figcaption><h3>캡처 화면 날짜·시간 수정</h3><span>캡처 자료</span></figcaption></figure>
           <figure class="case">{ba("a16", "4 / 5", "침실 가구 제거")}<figcaption><h3>침실 가구 제거</h3><span>사물 제거</span></figcaption></figure>
-          <figure class="case case--wide">{ba("a5", "165 / 100", "영수증 날짜 수정", wide=True)}<figcaption><h3>영수증 날짜 수정</h3><span>문서 이미지</span></figcaption></figure>
-          <figure class="case">{ba("a17", "4 / 5", "주방 식탁·의자 제거")}<figcaption><h3>주방 식탁·의자 제거</h3><span>사물 제거</span></figcaption></figure>
           <figure class="case case--wide">{ba("a6", "165 / 100", "검사 결과지 수정", wide=True)}<figcaption><h3>검사 결과지 수정</h3><span>문서 이미지</span></figcaption></figure>
+          <figure class="case">{ba("a17", "4 / 5", "주방 식탁·의자 제거")}<figcaption><h3>주방 식탁·의자 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a5", "165 / 100", "영수증 날짜 수정", wide=True)}<figcaption><h3>영수증 날짜 수정</h3><span>문서 이미지</span></figcaption></figure>
           <figure class="case">{ba("a18", "4 / 5", "공사현장 수정")}<figcaption><h3>공사현장 수정</h3><span>배경 합성</span></figcaption></figure>
           <figure class="case case--wide">{ba("a11", "165 / 100", "가설 펜스 출입문 합성", wide=True)}<figcaption><h3>가설 펜스 출입문 합성</h3><span>사물 합성</span></figcaption></figure>
           <figure class="case">{ba("a9", "4 / 5", "창고 구조물 제거·벽면 합성")}<figcaption><h3>창고 구조물 제거·벽면 합성</h3><span>사물 제거</span></figcaption></figure>
