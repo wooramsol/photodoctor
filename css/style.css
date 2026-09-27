@@ -207,9 +207,14 @@ button { font: inherit; cursor: pointer; color: inherit; background: none; borde
 .final .btn { margin-top: 20px; width: 100%; }
 
 /* ---------- About (SEO text) ---------- */
-.about { padding: 40px 0 8px; border-top: 1px solid var(--line); }
-.about__title { font-size: 17px; font-weight: 800; color: var(--ink-2); margin-bottom: 10px; }
-.about p { font-size: 14.5px; line-height: 1.75; color: var(--muted); }
+.about { padding: 22px 0 8px; border-top: 1px solid var(--line); }
+.about__title { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent; }
+.about__title::-webkit-details-marker { display: none; }
+.about__title h2 { font-size: 17px; font-weight: 800; color: var(--ink-2); margin: 0; }
+.about__chev { width: 22px; height: 22px; color: var(--muted); flex: none; transition: transform .2s; }
+.about__chev svg { width: 100%; height: 100%; }
+.about__box[open] .about__chev { transform: rotate(180deg); }
+.about p { font-size: 14.5px; line-height: 1.75; color: var(--muted); margin-top: 6px; }
 .about p + p { margin-top: 10px; }
 
 /* ---------- Footer ---------- */
