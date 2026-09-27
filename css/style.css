@@ -206,6 +206,12 @@ button { font: inherit; cursor: pointer; color: inherit; background: none; borde
 .final p { color: var(--muted); margin-top: 10px; font-size: 17px; }
 .final .btn { margin-top: 20px; width: 100%; }
 
+/* ---------- About (SEO text) ---------- */
+.about { padding: 40px 0 8px; border-top: 1px solid var(--line); }
+.about__title { font-size: 17px; font-weight: 800; color: var(--ink-2); margin-bottom: 10px; }
+.about p { font-size: 14.5px; line-height: 1.75; color: var(--muted); }
+.about p + p { margin-top: 10px; }
+
 /* ---------- Footer ---------- */
 .ft { padding: 28px 0; font-size: 14px; color: var(--faint); }
 .ft__links { display: flex; gap: 16px; margin-top: 8px; }
