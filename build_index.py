@@ -135,7 +135,7 @@ def thumb(i):
 def thumb_named(n, alt):
     w, h = Image.open(f"img/gallery/{n}-thumb.webp").size
     return f'<figure class="g" data-full="img/gallery/{n}-full.jpg"><img src="img/gallery/{n}-thumb.webp" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async"></figure>'
-thumbs = "\n          ".join([thumb_named("a12", "포토닥터 공사장 펜스 제거 작업 사례 Before / After")] + [thumb(i) for i in [6, 7, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28]])
+thumbs = "\n          ".join([thumb_named("a12", "포토닥터 공사장 펜스 제거 작업 사례 Before / After"), thumb_named("a8", "포토닥터 인물 변경 작업 사례 Before / After")] + [thumb(i) for i in [6, 7, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28]])
 
 LD = '''<script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
@@ -218,7 +218,6 @@ index += HEADER + f'''
           <figure class="case case--wide">{ba("a13", "165 / 100", "펜스 표지판·부착물 제거", wide=True)}<figcaption><h3>펜스 표지판·부착물 제거</h3><span>사물 제거</span></figcaption></figure>
           <figure class="case">{ba("a10", "4 / 5", "도로 장비·차량 합성")}<figcaption><h3>도로 장비·차량 합성</h3><span>사물 합성</span></figcaption></figure>
           <figure class="case case--wide">{ba("a14", "165 / 100", "거푸집 벽 합성", wide=True)}<figcaption><h3>거푸집 벽 합성</h3><span>사물 합성</span></figcaption></figure>
-          <figure class="case case--solo">{ba("a8", "4 / 5", "인물 변경")}<figcaption><h3>인물 변경</h3><span>인물 합성</span></figcaption></figure>
         </div>
         <div class="thumbs gallery" id="thumbs">
           {thumbs}
