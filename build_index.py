@@ -218,7 +218,7 @@ index += HEADER + f'''
           <figure class="case case--wide">{ba("a13", "165 / 100", "펜스 표지판·부착물 제거", wide=True)}<figcaption><h3>펜스 표지판·부착물 제거</h3><span>사물 제거</span></figcaption></figure>
           <figure class="case">{ba("a10", "4 / 5", "도로 장비·차량 합성")}<figcaption><h3>도로 장비·차량 합성</h3><span>사물 합성</span></figcaption></figure>
           <figure class="case case--wide">{ba("a14", "165 / 100", "거푸집 벽 합성", wide=True)}<figcaption><h3>거푸집 벽 합성</h3><span>사물 합성</span></figcaption></figure>
-          <figure class="case case--wide">{ba("a19", "1382 / 674", "사무실 집기·가구 제거", wide=True)}<figcaption><h3>사무실 집기·가구 제거</h3><span>사물 제거</span></figcaption></figure>
+          <figure class="case case--wide">{ba("a19", "165 / 100", "사무실 집기·가구 제거", wide=True)}<figcaption><h3>사무실 집기·가구 제거</h3><span>사물 제거</span></figcaption></figure>
           <figure class="case">{ba("a20", "4 / 5", "보도블록 복원 합성")}<figcaption><h3>보도블록 복원 합성</h3><span>배경 수정</span></figcaption></figure>
         </div>
         <div class="thumbs gallery" id="thumbs">
