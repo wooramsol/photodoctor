@@ -270,8 +270,9 @@ button { font: inherit; cursor: pointer; color: inherit; background: none; borde
   .rows { margin-top: 30px; }
   .row { grid-template-columns: 48px 1fr auto; padding: 22px 0; }
   .row h3 { font-size: 21px; }
-  .cases { grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
+  .cases { grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; grid-auto-flow: dense; }
   .case--wide { grid-column: span 2; }
+  .case--solo { grid-column: 2; }
   .cases { align-items: start; }
   .hero__visual .ba--hero { max-width: 100%; }
   .thumbs { grid-template-columns: repeat(6, 1fr); gap: 8px; }
