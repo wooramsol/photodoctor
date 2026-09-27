@@ -45,7 +45,7 @@ def head(title, desc, url, ld):
   <link rel="icon" type="image/png" sizes="180x180" href="img/favicon-a.png">
   <link rel="apple-touch-icon" href="img/favicon-a.png">
   <link rel="preload" as="image" href="img/ba/main-after.webp" imagesrcset="img/ba/main-after-m.webp 640w, img/ba/main-after.webp 1000w" imagesizes="{hero_sizes}" fetchpriority="high">
-  <link rel="preload" as="image" href="img/ba/main-before.webp" imagesrcset="img/ba/main-before-m.webp 640w, img/ba/main-before.webp 1000w" imagesizes="{hero_sizes}" fetchpriority="high">
+  <link rel="preload" as="image" href="img/ba/main-before.webp" imagesrcset="img/ba/main-before-m.webp 640w, img/ba/main-before.webp 1000w" imagesizes="{hero_sizes}">
   <style>{css}</style>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="{font_css}" media="print" onload="this.media='all'">
@@ -113,13 +113,14 @@ DIMS = json.load(open("img/ba/dims.json"))
 
 def ba(n, ratio, alt, cls="", wide=False):
     hero = bool(cls)
-    lz = ' fetchpriority="high"' if hero else ' loading="lazy" decoding="async"'
+    lz = '' if hero else ' loading="lazy" decoding="async"'
     sizes = HERO_SIZES if hero else (WIDE_SIZES if wide else CASE_SIZES)
     def img(side, label):
         w, h = DIMS[f"{n}-{side}"]
         src = f"img/ba/{n}-{side}.webp"
         srcset = f"img/ba/{n}-{side}-m.webp 640w, {src} {w}w" if w > 640 else f"{src} {w}w"
-        return f'<img src="{src}" srcset="{srcset}" sizes="{sizes}" width="{w}" height="{h}" alt="{alt} — {label}"{lz}>'
+        fp = ' fetchpriority="high"' if hero and side == "after" else ''
+        return f'<img src="{src}" srcset="{srcset}" sizes="{sizes}" width="{w}" height="{h}" alt="{alt} — {label}"{lz}{fp}>'
     return (f'<div class="ba {cls}" style="--ratio:{ratio}">'
             f'<div class="ba__after">{img("after", "수정 후")}</div>'
             f'<div class="ba__before">{img("before", "수정 전")}</div>'
@@ -185,8 +186,8 @@ index += HEADER + f'''
       <div class="wrap">
         <div class="partners partners--strip" aria-label="기업 파트너 로고">
           <div class="partners__track">
-            {''.join(f'<img src="img/partners/{i:02d}.webp" width="300" height="150" alt="파트너 로고">' for i in range(1, 16))}
-            {''.join(f'<img src="img/partners/{i:02d}.webp" width="300" height="150" alt="" aria-hidden="true">' for i in range(1, 16))}
+            {''.join(f'<img src="img/partners/{i:02d}.webp" width="300" height="150" alt="파트너 로고" loading="lazy" decoding="async">' for i in range(1, 16))}
+            {''.join(f'<img src="img/partners/{i:02d}.webp" width="300" height="150" alt="" aria-hidden="true" loading="lazy" decoding="async">' for i in range(1, 16))}
           </div>
         </div>
       </div>
