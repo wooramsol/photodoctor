@@ -135,7 +135,7 @@ def thumb(i):
 def thumb_named(n, alt):
     w, h = Image.open(f"img/gallery/{n}-thumb.webp").size
     return f'<figure class="g" data-full="img/gallery/{n}-full.jpg"><img src="img/gallery/{n}-thumb.webp" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async"></figure>'
-thumbs = "\n          ".join([thumb_named("a12", "포토닥터 공사장 펜스 제거 작업 사례 Before / After"), thumb_named("a8", "포토닥터 인물 변경 작업 사례 Before / After")] + [thumb(i) for i in [6, 7, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28]])
+thumbs = "\n          ".join([thumb_named("a8", "포토닥터 인물 변경 작업 사례 Before / After")] + [thumb(i) for i in [6, 7, 12, 15, 18, 19, 20, 21, 23, 24, 25, 26, 28]])
 
 LD = '''<script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
